@@ -2,9 +2,10 @@ package cz.cvut.fel.rsp.server.Model;
 
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 @MappedSuperclass
-public abstract class AbstractUser extends AbstractEntity {
+public abstract class AbstractUser extends AbstractEntity implements Serializable {
     @NotNull
     private String name;
     @NotNull
