@@ -1,9 +1,12 @@
 package cz.cvut.fel.rsp.server.config;
 
+
 import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
 import org.springframework.boot.autoconfigure.transaction.TransactionManagerCustomizers;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
@@ -16,6 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
+@EnableAutoConfiguration
 @PropertySource("classpath:eclipselink.properties")     // Contains additional, Eclipselink-specific configuration
 public class PersistenceConfig extends JpaBaseConfiguration {
 
