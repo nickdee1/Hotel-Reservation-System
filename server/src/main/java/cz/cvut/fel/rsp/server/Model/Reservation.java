@@ -36,7 +36,9 @@ public class Reservation extends AbstractEntity {
     @ManyToMany
     private List<Room> rooms;
     @ManyToOne
-    private AbstractUser user;
+    private User regUser;
+    @ManyToOne
+    private UnregisteredUser unregUser;
     @ManyToOne
     private Hotel hotel;
 
@@ -123,14 +125,6 @@ public class Reservation extends AbstractEntity {
         this.rooms = rooms;
     }
 
-    public AbstractUser getUser() {
-        return user;
-    }
-
-    public void setUser(AbstractUser user) {
-        this.user = user;
-    }
-
     public Hotel getHotel() {
         return hotel;
     }
@@ -138,4 +132,22 @@ public class Reservation extends AbstractEntity {
     public void setHotel(Hotel hotel) {
         this.hotel = hotel;
     }
+
+    public User getRegUser() {
+        return regUser;
+    }
+
+    public void setRegUser(User regUser) {
+        this.regUser = regUser;
+    }
+
+    public UnregisteredUser getUnregUser() {
+        return unregUser;
+    }
+
+    public void setUnregUser(UnregisteredUser unregUser) {
+        this.unregUser = unregUser;
+    }
+    
+    
 }

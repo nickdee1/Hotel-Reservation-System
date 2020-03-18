@@ -19,7 +19,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
-@EnableAutoConfiguration
 @PropertySource("classpath:eclipselink.properties")     // Contains additional, Eclipselink-specific configuration
 public class PersistenceConfig extends JpaBaseConfiguration {
 
