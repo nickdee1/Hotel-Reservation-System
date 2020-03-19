@@ -6,11 +6,13 @@
 package cz.cvut.fel.rsp.server.dao;
 
 import cz.cvut.fel.rsp.server.Model.Reservation;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author FN
  */
+@Repository
 public class ReservationDao extends AbstractDao<Reservation> {
     
     public ReservationDao() {

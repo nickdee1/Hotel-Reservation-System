@@ -1,5 +1,6 @@
 package cz.cvut.fel.rsp.server.Model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
@@ -11,6 +12,7 @@ import java.util.List;
 @Table(name="UnregisteredUser")
 public class UnregisteredUser extends AbstractUser {
     @OneToMany
+    @JsonManagedReference(value = "unregUserRes")
     private List<Reservation> reservations;
 
     public UnregisteredUser() {

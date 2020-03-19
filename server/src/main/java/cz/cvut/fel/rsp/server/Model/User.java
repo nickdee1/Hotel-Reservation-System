@@ -1,5 +1,7 @@
 package cz.cvut.fel.rsp.server.Model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import cz.cvut.fel.rsp.server.Model.Enums.UserRoleEnum;
 
 import javax.persistence.Entity;
@@ -20,8 +22,10 @@ public class User extends AbstractUser {
     private List<UserRoleEnum> roles;
 
     @OneToMany
+    @JsonManagedReference(value = "regUserRes")
     private List<Reservation> reservations;
     @ManyToOne
+    @JsonBackReference(value="hotelUser")
     private Hotel hotel;
 
 

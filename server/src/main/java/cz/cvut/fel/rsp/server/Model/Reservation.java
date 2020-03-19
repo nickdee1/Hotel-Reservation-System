@@ -1,5 +1,7 @@
 package cz.cvut.fel.rsp.server.Model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 import cz.cvut.fel.rsp.server.Model.Enums.MoneyTypeEnum;
 
@@ -34,12 +36,16 @@ public class Reservation extends AbstractEntity {
     private Boolean guestLeft;
 
     @ManyToMany
+    @JsonIgnore
     private List<Room> rooms;
     @ManyToOne
+    @JsonBackReference(value="regUserRes")
     private User regUser;
     @ManyToOne
+    @JsonBackReference(value="unregUserRes")
     private UnregisteredUser unregUser;
     @ManyToOne
+    @JsonBackReference(value="hotelRes")
     private Hotel hotel;
 
     public Reservation() {

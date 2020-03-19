@@ -6,11 +6,13 @@
 package cz.cvut.fel.rsp.server.dao;
 
 import cz.cvut.fel.rsp.server.Model.User;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author FN
  */
+@Repository
 public class UserDao extends AbstractDao<User> {
     
     public UserDao() {

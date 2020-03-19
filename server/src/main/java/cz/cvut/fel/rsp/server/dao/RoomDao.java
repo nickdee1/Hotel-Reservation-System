@@ -6,11 +6,13 @@
 package cz.cvut.fel.rsp.server.dao;
 
 import cz.cvut.fel.rsp.server.Model.Room;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author FN
  */
+@Repository
 public class RoomDao extends AbstractDao<Room> {
     
     public RoomDao() {

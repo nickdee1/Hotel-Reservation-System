@@ -9,12 +9,12 @@ import java.io.Serializable;
 public abstract class AbstractEntity implements Serializable {
     @Id
     @GeneratedValue
-    private Long id;
+    private Integer id;
 
     public AbstractEntity() {
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 }

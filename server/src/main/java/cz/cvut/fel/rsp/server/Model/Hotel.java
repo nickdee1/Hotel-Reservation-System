@@ -1,5 +1,6 @@
 package cz.cvut.fel.rsp.server.Model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -27,10 +28,13 @@ public class Hotel extends AbstractEntity {
     private String phoneNum;
 
     @OneToMany
+    @JsonManagedReference(value="hotelRoom")
     private List<Room> rooms;
     @OneToMany
+    @JsonManagedReference(value = "hotelUser")
     private List<User> registeredUsers;
     @OneToMany
+    @JsonManagedReference(value = "hotelRes")
     private List<Reservation> reservations;
 
     public Hotel() {

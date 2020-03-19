@@ -1,5 +1,7 @@
 package cz.cvut.fel.rsp.server.Model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import cz.cvut.fel.rsp.server.Model.Enums.MoneyTypeEnum;
 
 import javax.persistence.*;
@@ -27,8 +29,10 @@ public class Room extends AbstractEntity {
     private boolean photoAdress;
 
     @ManyToMany
+    @JsonIgnore
     private List<Reservation> reservations;
     @ManyToOne
+    @JsonBackReference(value="hotelRoom")
     private Hotel hotel;
 
     public Room() {
