@@ -1,6 +1,7 @@
 package cz.cvut.fel.rsp.server.Model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import java.util.ArrayList;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -105,6 +106,9 @@ public class Hotel extends AbstractEntity {
     }
 
     public List<Room> getRooms() {
+        if(rooms == null) {
+            rooms = new ArrayList();
+        }
         return rooms;
     }
 
@@ -113,6 +117,9 @@ public class Hotel extends AbstractEntity {
     }
 
     public List<User> getRegisteredUsers() {
+        if(registeredUsers == null) {
+            registeredUsers = new ArrayList();
+        }
         return registeredUsers;
     }
 
@@ -121,10 +128,15 @@ public class Hotel extends AbstractEntity {
     }
 
     public List<Reservation> getReservations() {
+        if(reservations == null) {
+            reservations = new ArrayList();
+        }
         return reservations;
     }
 
     public void setReservations(List<Reservation> reservations) {
         this.reservations = reservations;
     }
+    
+    
 }

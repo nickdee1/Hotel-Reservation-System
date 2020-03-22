@@ -12,6 +12,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.PostRemove;
+import javax.persistence.PreRemove;
 
 @Entity
 @Table(name = "Reservation")

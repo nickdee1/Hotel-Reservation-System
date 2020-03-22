@@ -6,6 +6,7 @@
 package cz.cvut.fel.rsp.server.service;
 
 import cz.cvut.fel.rsp.server.Model.Hotel;
+import cz.cvut.fel.rsp.server.Model.Room;
 import cz.cvut.fel.rsp.server.dao.HotelDao;
 import cz.cvut.fel.rsp.server.dao.ReservationDao;
 import cz.cvut.fel.rsp.server.dao.RoomDao;
@@ -46,5 +47,7 @@ public class HotelService extends DaoConnection {
     public void deleteHotel(Hotel h) {
         hotelDao.remove(h);
     }
+    
+    
 
 }
