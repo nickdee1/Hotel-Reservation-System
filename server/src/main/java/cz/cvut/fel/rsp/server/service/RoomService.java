@@ -5,6 +5,8 @@
  */
 package cz.cvut.fel.rsp.server.service;
 
+import cz.cvut.fel.rsp.server.Model.Enums.MoneyTypeEnum;
+import cz.cvut.fel.rsp.server.Model.Enums.RoomType;
 import cz.cvut.fel.rsp.server.Model.Room;
 import cz.cvut.fel.rsp.server.dao.HotelDao;
 import cz.cvut.fel.rsp.server.dao.ReservationDao;
@@ -12,6 +14,7 @@ import cz.cvut.fel.rsp.server.dao.RoomDao;
 import cz.cvut.fel.rsp.server.dao.UnregisteredUserDao;
 import cz.cvut.fel.rsp.server.dao.UserDao;
 import java.util.List;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,15 +29,17 @@ public class RoomService extends DaoConnection {
     public RoomService(HotelDao hotelDao, UserDao userDao, ReservationDao resDao, UnregisteredUserDao unregUserDao, RoomDao roomDao) {
         super(hotelDao, userDao, resDao, unregUserDao, roomDao);
     }
-    
+    @Transactional
     public List<Room> getAllRooms() {
         return roomDao.findAll();
+        
     }
     
     public Room findRoomById(int id) {
         return roomDao.find(id);
     }
     
+    @Transactional
     public void addRoom(Room r) {
         if(r != null) {
             roomDao.persist(r);
