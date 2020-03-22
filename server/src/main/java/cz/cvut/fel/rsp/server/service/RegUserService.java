@@ -62,5 +62,4 @@ public class RegUserService extends DaoConnection {
         userDao.remove(u);
         return true;
     }
-    
 }

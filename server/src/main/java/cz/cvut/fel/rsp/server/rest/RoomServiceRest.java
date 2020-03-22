@@ -12,7 +12,6 @@ import cz.cvut.fel.rsp.server.service.ReservationService;
 import cz.cvut.fel.rsp.server.service.RoomService;
 import cz.cvut.fel.rsp.server.service.UnregUserService;
 import java.util.List;
-import javafx.application.Application;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -50,7 +49,6 @@ public class RoomServiceRest extends AbstractServices {
             roomService.addRoom(room);
         }
     }
-    
     
     @PutMapping(value="/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void updateRoom(@PathVariable Integer id, @RequestBody Room room) {
