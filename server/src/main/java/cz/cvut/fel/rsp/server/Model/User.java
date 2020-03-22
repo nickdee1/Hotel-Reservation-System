@@ -26,7 +26,7 @@ public class User extends AbstractUser {
     @NotNull
     private String password;
     @NotNull
-    private boolean blocked;
+    private Boolean blocked;
     @NotNull
     private List<UserRoleEnum> roles;
 
@@ -49,11 +49,11 @@ public class User extends AbstractUser {
         this.password = password;
     }
 
-    public boolean isBlocked() {
+    public Boolean getBlocked() {
         return blocked;
     }
 
-    public void setBlocked(boolean blocked) {
+    public void setBlocked(Boolean blocked) {
         this.blocked = blocked;
     }
 

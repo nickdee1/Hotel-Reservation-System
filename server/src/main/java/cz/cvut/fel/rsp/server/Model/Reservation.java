@@ -12,12 +12,14 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.Lob;
 import javax.persistence.PostRemove;
 import javax.persistence.PreRemove;
 
 @Entity
 @Table(name = "Reservation")
 public class Reservation extends AbstractEntity {
+
     @NotNull
     private String reservationNumber;
     @NotNull
@@ -37,17 +39,21 @@ public class Reservation extends AbstractEntity {
     @NotNull
     private Boolean guestLeft;
 
+    private Boolean cancelled;
+    @Lob
+    private String resInfo;
+
     @ManyToMany
     @JsonIgnore
     private List<Room> rooms;
     @ManyToOne
-    @JsonBackReference(value="regUserRes")
+    @JsonBackReference(value = "regUserRes")
     private User regUser;
     @ManyToOne
-    @JsonBackReference(value="unregUserRes")
+    @JsonBackReference(value = "unregUserRes")
     private UnregisteredUser unregUser;
     @ManyToOne
-    @JsonBackReference(value="hotelRes")
+    @JsonBackReference(value = "hotelRes")
     private Hotel hotel;
 
     public Reservation() {
@@ -101,30 +107,6 @@ public class Reservation extends AbstractEntity {
         this.moneyType = moneyType;
     }
 
-    public boolean isPaied() {
-        return paied;
-    }
-
-    public void setPaied(boolean paied) {
-        this.paied = paied;
-    }
-
-    public boolean isGuestArrived() {
-        return guestArrived;
-    }
-
-    public void setGuestArrived(boolean guestArrived) {
-        this.guestArrived = guestArrived;
-    }
-
-    public boolean isGuestLeft() {
-        return guestLeft;
-    }
-
-    public void setGuestLeft(boolean guestLeft) {
-        this.guestLeft = guestLeft;
-    }
-
     public List<Room> getRooms() {
         return rooms;
     }
@@ -156,6 +138,45 @@ public class Reservation extends AbstractEntity {
     public void setUnregUser(UnregisteredUser unregUser) {
         this.unregUser = unregUser;
     }
-    
+
+    public Boolean getCancelled() {
+        return cancelled;
+    }
+
+    public void setCancelled(Boolean cancelled) {
+        this.cancelled = cancelled;
+    }
+
+    public Boolean getPaied() {
+        return paied;
+    }
+
+    public void setPaied(Boolean paied) {
+        this.paied = paied;
+    }
+
+    public Boolean getGuestArrived() {
+        return guestArrived;
+    }
+
+    public void setGuestArrived(Boolean guestArrived) {
+        this.guestArrived = guestArrived;
+    }
+
+    public Boolean getGuestLeft() {
+        return guestLeft;
+    }
+
+    public void setGuestLeft(Boolean guestLeft) {
+        this.guestLeft = guestLeft;
+    }
+
+    public String getResInfo() {
+        return resInfo;
+    }
+
+    public void setResInfo(String resInfo) {
+        this.resInfo = resInfo;
+    }
     
 }
