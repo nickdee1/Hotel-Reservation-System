@@ -18,5 +18,4 @@ public class UnregisteredUserDao extends AbstractDao<UnregisteredUser> {
     public UnregisteredUserDao() {
         super(UnregisteredUser.class);
     }
-    
 }

@@ -138,5 +138,9 @@ public class Hotel extends AbstractEntity {
         this.reservations = reservations;
     }
     
-    
+    public void setId(int id) {
+        this.id =id;
+    }
+
+
 }

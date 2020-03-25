@@ -51,20 +51,15 @@ public class RoomServiceRest extends AbstractServices {
         }
     }
 
-    @PutMapping(value="/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void updateRoom(@PathVariable Integer id, @RequestBody Room room) {
-        Room oldRoom = roomService.findRoomById(id);
-        if(oldRoom != null) {
-            roomService.updateRoom(room);
-        }
+
+    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void updateRoom(@RequestBody Room room) {
+        roomService.updateRoom(room);
     }
     
     @DeleteMapping(value="/{id}")
     public void deleteRoom(@PathVariable Integer id) {
-        Room toDelete = roomService.findRoomById(id);
-        if(toDelete != null) {
-            roomService.deleteRoom(toDelete);
-        }
+        roomService.deleteRoom(id);
     }
     
 }

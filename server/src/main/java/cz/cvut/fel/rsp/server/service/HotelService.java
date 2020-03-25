@@ -13,6 +13,7 @@ import cz.cvut.fel.rsp.server.dao.RoomDao;
 import cz.cvut.fel.rsp.server.dao.UnregisteredUserDao;
 import cz.cvut.fel.rsp.server.dao.UserDao;
 import java.util.List;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,26 +29,32 @@ public class HotelService extends DaoConnection {
         super(hotelDao, userDao, resDao, unregUserDao, roomDao);
     }
 
+    @Transactional
     public List<Hotel> getAllHotels() {
         return hotelDao.findAll();
     }
-    
+
+    @Transactional
     public Hotel findOneById(int id) {
         return hotelDao.find(id);
     }
-    
-    public void update(Hotel h) {
-        hotelDao.update(h);
+
+    @Transactional
+    public boolean update(Hotel h) {
+        Hotel old = hotelDao.find(h.getId());
+        if (old != null) {
+            h.setRegisteredUsers(old.getRegisteredUsers());
+            h.setReservations(old.getReservations());
+            h.setRooms(old.getRooms());
+            hotelDao.update(h);
+            return true;
+        }
+        return false;
     }
-    
+
+    @Transactional
     public void addHotel(Hotel h) {
         hotelDao.persist(h);
     }
-    
-    public void deleteHotel(Hotel h) {
-        hotelDao.remove(h);
-    }
-    
-    
 
 }
