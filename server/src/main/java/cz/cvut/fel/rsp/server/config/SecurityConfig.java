@@ -72,7 +72,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.anonymous();
+        http.anonymous().and().cors().and().csrf().disable();
 //        http.authorizeRequests().anyRequest().permitAll().and()
 //            .exceptionHandling().authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
 //            .and().headers().frameOptions().sameOrigin()

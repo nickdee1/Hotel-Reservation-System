@@ -11,6 +11,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.criteria.CriteriaBuilder;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -40,8 +41,8 @@ public class UnregisteredUserRest extends AbstractServices{
     }
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void updateUnregUser(@PathVariable Integer id, @RequestBody UnregisteredUser unregisteredUser) {
-        UnregisteredUser unregUser = unregUserService.findUserById(id);
+    public void updateUnregUser(@RequestBody UnregisteredUser unregisteredUser) {
+        UnregisteredUser unregUser = unregUserService.findUserById(unregisteredUser.getId());
         if (unregUser != null) {
             unregUserService.updateUser(unregisteredUser);
         }

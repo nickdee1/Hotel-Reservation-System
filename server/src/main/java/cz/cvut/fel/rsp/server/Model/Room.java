@@ -3,6 +3,7 @@ package cz.cvut.fel.rsp.server.Model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import cz.cvut.fel.rsp.server.Model.Enums.MoneyTypeEnum;
+import cz.cvut.fel.rsp.server.Model.Enums.RoomType;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -27,6 +28,8 @@ public class Room extends AbstractEntity {
     private String actualReservationNum;
 
     private boolean photoAdress;
+
+    private RoomType roomType;
 
     @ManyToMany
     @JsonIgnore
@@ -117,4 +120,14 @@ public class Room extends AbstractEntity {
     public void setMoneyType(MoneyTypeEnum moneyType) {
         this.moneyType = moneyType;
     }
+
+    public RoomType getRoomType() {
+        return roomType;
+    }
+
+    public void setRoomType(RoomType roomType) {
+        this.roomType = roomType;
+    }
+
+
 }

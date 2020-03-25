@@ -10,6 +10,7 @@ import cz.cvut.fel.rsp.server.dao.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 /**
@@ -29,6 +30,7 @@ public class UnregUserService extends DaoConnection {
 
     public UnregisteredUser findUserById(int id) { return unregUserDao.find(id); }
 
+    @Transactional
     public void updateUser(UnregisteredUser unregisteredUser) {
         if (unregUserDao.exists(unregisteredUser.getId())) {
             unregUserDao.update(unregisteredUser);
@@ -36,11 +38,13 @@ public class UnregUserService extends DaoConnection {
     }
 
     /* Redesign */
+    @Transactional
     public void createUser(UnregisteredUser unregisteredUser, List<Reservation> reservations) {
         unregisteredUser.setReservations(reservations);
         unregUserDao.persist(unregisteredUser);
     }
 
+    @Transactional
     public boolean deleteUser(UnregisteredUser unregisteredUser) {
         if(!unregisteredUser.isDeleteable()) {
             return false;
