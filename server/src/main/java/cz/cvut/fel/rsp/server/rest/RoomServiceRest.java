@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author FN
  */
 @RestController
-@RequestMapping("/rest/roomService")
+@RequestMapping("/rest/{hotelid}/roomService")
 @PreAuthorize("permitAll()")
 public class RoomServiceRest extends AbstractServices {
     
@@ -40,7 +40,7 @@ public class RoomServiceRest extends AbstractServices {
     }
     
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Room> getAllRooms() {
+    public List<Room> getAllRooms(@PathVariable Integer hotelid) {
         return roomService.getAllRooms();
     }
     

@@ -11,6 +11,9 @@ import cz.cvut.fel.rsp.server.dao.ReservationDao;
 import cz.cvut.fel.rsp.server.dao.RoomDao;
 import cz.cvut.fel.rsp.server.dao.UnregisteredUserDao;
 import cz.cvut.fel.rsp.server.dao.UserDao;
+import javax.annotation.PostConstruct;
+import javax.transaction.Transactional;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +22,7 @@ import org.springframework.stereotype.Service;
  * @author FN
  */
 @Service
-public abstract class DaoConnection {
+public abstract class DaoConnection{
     protected HotelDao hotelDao;
     protected UserDao userDao;
     protected ReservationDao resDao;
@@ -34,24 +37,6 @@ public abstract class DaoConnection {
         this.unregUserDao = unregUserDao;
         this.roomDao = roomDao;
     }
-    
-    protected void init() {
-        if(hotelDao.find(1) != null) {
-            return;
-        }
-        Hotel h = new Hotel();
-        h.setName("Dream Team Hotel");
-        h.setCapacity(500);
-        h.setCity("Dream Town");
-        h.setCountry("United Dream States");
-        h.setEmail("dream@hotel.cz");
-        h.setId(1);
-        h.setPhoneNum("+420111222333");
-        h.setPostalCode(56567);
-        h.setStreetName("Dream Street");
-        hotelDao.persist(h);
-    }
-    
-    
+
     
 }
