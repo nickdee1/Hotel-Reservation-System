@@ -42,6 +42,7 @@ public class Reservation extends AbstractEntity {
     private Boolean cancelled;
     @Lob
     private String resInfo;
+    private Integer numberOfChildren;
 
     @ManyToMany
     @JsonIgnore
@@ -178,5 +179,13 @@ public class Reservation extends AbstractEntity {
     public void setResInfo(String resInfo) {
         this.resInfo = resInfo;
     }
+
+    public Integer getNumberOfChildren() {
+        return numberOfChildren;
+    }
+
+    public void setNumberOfChildren(Integer numberOfChildren) {
+        this.numberOfChildren = numberOfChildren;
+    }   
     
 }

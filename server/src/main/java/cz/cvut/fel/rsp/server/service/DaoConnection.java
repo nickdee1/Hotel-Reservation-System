@@ -5,6 +5,7 @@
  */
 package cz.cvut.fel.rsp.server.service;
 
+import cz.cvut.fel.rsp.server.Model.Hotel;
 import cz.cvut.fel.rsp.server.dao.HotelDao;
 import cz.cvut.fel.rsp.server.dao.ReservationDao;
 import cz.cvut.fel.rsp.server.dao.RoomDao;
@@ -32,6 +33,24 @@ public abstract class DaoConnection {
         this.resDao = resDao;
         this.unregUserDao = unregUserDao;
         this.roomDao = roomDao;
+        init();
+    }
+    
+    private void init() {
+        if(hotelDao.find(1) != null) {
+            return;
+        }
+        Hotel h = new Hotel();
+        h.setName("Dream Team Hotel");
+        h.setCapacity(500);
+        h.setCity("Dream Town");
+        h.setCountry("United Dream States");
+        h.setEmail("dream@hotel.cz");
+        h.setId(1);
+        h.setPhoneNum("+420111222333");
+        h.setPostalCode(56567);
+        h.setStreetName("Dream Street");
+        hotelDao.persist(h);
     }
     
     

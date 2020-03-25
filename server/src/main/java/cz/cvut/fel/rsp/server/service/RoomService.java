@@ -24,38 +24,47 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class RoomService extends DaoConnection {
-    
+
     @Autowired
     public RoomService(HotelDao hotelDao, UserDao userDao, ReservationDao resDao, UnregisteredUserDao unregUserDao, RoomDao roomDao) {
         super(hotelDao, userDao, resDao, unregUserDao, roomDao);
     }
+
     @Transactional
     public List<Room> getAllRooms() {
         return roomDao.findAll();
-        
+
     }
-    
+
+    @Transactional
     public Room findRoomById(int id) {
         return roomDao.find(id);
     }
-    
+
     @Transactional
     public void addRoom(Room r) {
-        if(r != null) {
+        if (r != null) {
             roomDao.persist(r);
         }
     }
     
-    public void updateRoom(Room r) {
-        if(roomDao.exists(r.getId())) {
+    @Transactional
+    public boolean updateRoom(Room r) {
+        if (roomDao.exists(r.getId())) {
             roomDao.update(r);
+            return true;
         }
+        return false;
     }
-    
-    public void deleteRoom(Room r) {
-        if(roomDao.exists(r.getId())) {
-            roomDao.remove(r);
+
+    @Transactional
+    public boolean deleteRoom(int id) {
+        Room r = roomDao.find(id);
+        if (r == null) {
+            return false;
         }
+        roomDao.remove(r);
+        return true;
     }
-    
+
 }
