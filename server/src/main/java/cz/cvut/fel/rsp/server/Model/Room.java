@@ -31,6 +31,8 @@ public class Room extends AbstractEntity {
     
     private RoomType roomType;
 
+    private RoomType roomType;
+
     @ManyToMany
     @JsonIgnore
     private List<Reservation> reservations;
