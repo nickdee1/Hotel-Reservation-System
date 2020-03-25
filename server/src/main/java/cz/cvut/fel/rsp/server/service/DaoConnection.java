@@ -33,10 +33,9 @@ public abstract class DaoConnection {
         this.resDao = resDao;
         this.unregUserDao = unregUserDao;
         this.roomDao = roomDao;
-        init();
     }
     
-    private void init() {
+    protected void init() {
         if(hotelDao.find(1) != null) {
             return;
         }
