@@ -1,6 +1,5 @@
 package cz.cvut.fel.rsp.server.rest;
 
-
 import cz.cvut.fel.rsp.server.Model.Reservation;
 import cz.cvut.fel.rsp.server.Model.Room;
 import cz.cvut.fel.rsp.server.Model.UnregisteredUser;
@@ -10,12 +9,11 @@ import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/rest/unregUsers")
+@PreAuthorize("permitAll()")
 public class UnregisteredUserRest extends AbstractServices{
 
     @Autowired
@@ -24,7 +22,7 @@ public class UnregisteredUserRest extends AbstractServices{
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<UnregisteredUser> getAllRooms() {
+    public List<UnregisteredUser> getAllUsers() {
         return unregUserService.getAllUnregUsers();
     }
 
@@ -40,12 +38,6 @@ public class UnregisteredUserRest extends AbstractServices{
         }
     }
 
-    @PostMapping(value = "/reservation", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void createReservation(@PathVariable Integer id, @RequestBody Reservation reservation) {
-        if (reservation != null)
-            reservationService.createReservationRegistered(reservation);
-    }
-
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void updateUnregUser(@RequestBody UnregisteredUser unregisteredUser) {
         UnregisteredUser unregUser = unregUserService.findUserById(unregisteredUser.getId());
@@ -54,7 +46,7 @@ public class UnregisteredUserRest extends AbstractServices{
         }
     }
 
-    @DeleteMapping(value="/{id}")
+    @DeleteMapping(value= "/{id}")
     public void deleteUnregUser(@PathVariable Integer id) {
         UnregisteredUser userToDelete = unregUserService.findUserById(id);
         if (userToDelete != null) {
