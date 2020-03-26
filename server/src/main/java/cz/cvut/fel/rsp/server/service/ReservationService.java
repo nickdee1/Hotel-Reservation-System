@@ -43,4 +43,53 @@ public class ReservationService extends DaoConnection {
         
     }
     
+
+    @Autowired
+    public ReservationService(HotelDao hotelDao, UserDao userDao, ReservationDao resDao, UnregisteredUserDao unregUserDao, RoomDao roomDao) {
+        super(hotelDao, userDao, resDao, unregUserDao, roomDao);
+    }
+
+    @Transactional
+    public List<Reservation> getAllRes() {
+        return resDao.findAll();
+    }
+
+    @Transactional
+    public Reservation findResById(int id) {
+        return resDao.find(id);
+    }
+
+    @Transactional
+    public void updateResById(int id) {
+
+    }
+
+    @Transactional
+    public boolean createReservationUnregistered(Reservation reservation) {
+        if (reservation != null) {
+
+            if (reservation.getUnregUser() != null) {
+                Integer id = reservation.getUnregUser().getId();
+                UnregisteredUser unregisteredUser = unregUserDao.find(id);
+                unregisteredUser.setReservation(reservation);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Transactional
+    public boolean createReservationRegistered(Reservation reservation) {
+        if (reservation != null) {
+
+            if (reservation.getRegUser() != null) {
+                Integer id = reservation.getRegUser().getId();
+                User user = userDao.find(id);
+                user.setReservation(reservation);
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

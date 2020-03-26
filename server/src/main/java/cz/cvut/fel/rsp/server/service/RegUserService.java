@@ -10,6 +10,8 @@ import cz.cvut.fel.rsp.server.Model.Hotel;
 import cz.cvut.fel.rsp.server.Model.Reservation;
 import cz.cvut.fel.rsp.server.Model.Room;
 import cz.cvut.fel.rsp.server.Model.User;
+import cz.cvut.fel.rsp.server.Model.*;
+import cz.cvut.fel.rsp.server.Model.Enums.UserRoleEnum;
 import cz.cvut.fel.rsp.server.dao.HotelDao;
 import cz.cvut.fel.rsp.server.dao.ReservationDao;
 import cz.cvut.fel.rsp.server.dao.RoomDao;
@@ -36,6 +38,8 @@ public class RegUserService extends DaoConnection {
     public List<User> findAll() {
         return userDao.findAll();
     }
+
+    public User findUserById(int id) { return userDao.find(id); }
 
     @Transactional
     public boolean createUser(User u, int hotelId) {

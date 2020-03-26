@@ -188,4 +188,6 @@ public class Reservation extends AbstractEntity {
         this.numberOfChildren = numberOfChildren;
     }   
     
+    }
+
 }

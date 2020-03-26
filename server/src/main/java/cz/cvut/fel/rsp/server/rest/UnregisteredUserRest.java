@@ -34,10 +34,16 @@ public class UnregisteredUserRest extends AbstractServices{
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void addUnregUser(@RequestBody UnregisteredUser unregisteredUser, @RequestBody List<Reservation> reservations) {
+    public void addUnregUser(@RequestBody UnregisteredUser unregisteredUser) {
         if (unregisteredUser != null) {
-            unregUserService.createUser(unregisteredUser, reservations);
+            unregUserService.createUser(unregisteredUser);
         }
+    }
+
+    @PostMapping(value = "/reservation", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void createReservation(@PathVariable Integer id, @RequestBody Reservation reservation) {
+        if (reservation != null)
+            reservationService.createReservationRegistered(reservation);
     }
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)

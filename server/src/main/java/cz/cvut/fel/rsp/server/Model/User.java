@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import cz.cvut.fel.rsp.server.Model.Enums.UserRoleEnum;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -39,6 +40,7 @@ public class User extends AbstractUser {
 
 
     public User() {
+        reservations = new ArrayList<>();
     }
 
     public String getPassword() {
@@ -72,6 +74,8 @@ public class User extends AbstractUser {
     public void setReservations(List<Reservation> reservations) {
         this.reservations = reservations;
     }
+
+    public void setReservation(Reservation reservation) { reservations.add(reservation); }
 
     public Hotel getHotel() {
         return hotel;

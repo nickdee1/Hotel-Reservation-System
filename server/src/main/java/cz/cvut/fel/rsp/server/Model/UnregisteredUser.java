@@ -1,6 +1,8 @@
 package cz.cvut.fel.rsp.server.Model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import javax.persistence.Entity;
@@ -19,6 +21,7 @@ public class UnregisteredUser extends AbstractUser {
     private List<Reservation> reservations;
 
     public UnregisteredUser() {
+        reservations = new ArrayList<>();
     }
 
     public List<Reservation> getReservations() {
@@ -28,7 +31,9 @@ public class UnregisteredUser extends AbstractUser {
     public void setReservations(List<Reservation> reservations) {
         this.reservations = reservations;
     }
-    
+
+    public void setReservation(Reservation reservation) { reservations.add(reservation); }
+
     public boolean isDeleteable() {
         if(getReservations().isEmpty()) {
             return true;

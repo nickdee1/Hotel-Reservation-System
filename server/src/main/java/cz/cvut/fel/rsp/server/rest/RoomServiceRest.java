@@ -52,6 +52,8 @@ public class RoomServiceRest extends AbstractServices {
     }
     
     
+
+
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public void updateRoom(@RequestBody Room room) {
         roomService.updateRoom(room);
