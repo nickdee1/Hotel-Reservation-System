@@ -6,6 +6,8 @@
 package cz.cvut.fel.rsp.server.service;
 
 import cz.cvut.fel.rsp.server.Model.Reservation;
+import cz.cvut.fel.rsp.server.Model.UnregisteredUser;
+import cz.cvut.fel.rsp.server.Model.User;
 import cz.cvut.fel.rsp.server.dao.HotelDao;
 import cz.cvut.fel.rsp.server.dao.ReservationDao;
 import cz.cvut.fel.rsp.server.dao.RoomDao;
@@ -41,27 +43,6 @@ public class ReservationService extends DaoConnection {
     @Transactional
     public void updateResById(int id) {
         
-    }
-    
-
-    @Autowired
-    public ReservationService(HotelDao hotelDao, UserDao userDao, ReservationDao resDao, UnregisteredUserDao unregUserDao, RoomDao roomDao) {
-        super(hotelDao, userDao, resDao, unregUserDao, roomDao);
-    }
-
-    @Transactional
-    public List<Reservation> getAllRes() {
-        return resDao.findAll();
-    }
-
-    @Transactional
-    public Reservation findResById(int id) {
-        return resDao.find(id);
-    }
-
-    @Transactional
-    public void updateResById(int id) {
-
     }
 
     @Transactional

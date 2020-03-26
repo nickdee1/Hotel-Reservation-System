@@ -33,35 +33,30 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/rest/{hotelid}/roomService")
 @PreAuthorize("permitAll()")
 public class RoomServiceRest extends AbstractServices {
-    
+
     @Autowired
     public RoomServiceRest(RoomService roomService, HotelService hotelService, RegUserService regUserService, ReservationService reservationService, UnregUserService unregUserService) {
         super(roomService, hotelService, regUserService, reservationService, unregUserService);
     }
-    
+
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Room> getAllRooms(@PathVariable Integer hotelid) {
-        return roomService.getAllRooms();
+        return roomService.getAllRoomsInHotel(hotelid);
     }
-    
-    @PostMapping(consumes=MediaType.APPLICATION_JSON_VALUE)
-    public void addRoom(@RequestBody Room room) {
-        if(room != null) {
-            roomService.addRoom(room);
-        }
-    }
-    
-    
 
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void addRoom(@PathVariable Integer hotelid, @RequestBody Room room) {
+        roomService.addRoom(room, hotelid);
+    }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public void updateRoom(@RequestBody Room room) {
         roomService.updateRoom(room);
     }
-    
-    @DeleteMapping(value="/{id}")
+
+    @DeleteMapping(value = "/{id}")
     public void deleteRoom(@PathVariable Integer id) {
         roomService.deleteRoom(id);
     }
-    
+
 }

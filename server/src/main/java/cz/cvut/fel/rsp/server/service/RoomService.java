@@ -7,6 +7,7 @@ package cz.cvut.fel.rsp.server.service;
 
 import cz.cvut.fel.rsp.server.Model.Enums.MoneyTypeEnum;
 import cz.cvut.fel.rsp.server.Model.Enums.RoomType;
+import cz.cvut.fel.rsp.server.Model.Hotel;
 import cz.cvut.fel.rsp.server.Model.Room;
 import cz.cvut.fel.rsp.server.dao.HotelDao;
 import cz.cvut.fel.rsp.server.dao.ReservationDao;
@@ -33,7 +34,15 @@ public class RoomService extends DaoConnection {
     @Transactional
     public List<Room> getAllRooms() {
         return roomDao.findAll();
-
+    }
+    
+    @Transactional
+    public List<Room> getAllRoomsInHotel(int hotelId) {
+        Hotel h = hotelDao.find(hotelId);
+        if(h == null) {
+            return null;
+        }
+        return roomDao.findAllByHotel(h);
     }
 
     @Transactional
@@ -42,15 +51,24 @@ public class RoomService extends DaoConnection {
     }
 
     @Transactional
-    public void addRoom(Room r) {
-        if (r != null) {
+    public boolean addRoom(Room r, int hotelId) {
+        Hotel h = hotelDao.find(hotelId);
+        if (r != null && h != null) {
+            r.setHotel(h);
+            h.getRooms().add(r);
             roomDao.persist(r);
+            hotelDao.update(h);
+            return true;
         }
+        return false;
     }
     
     @Transactional
     public boolean updateRoom(Room r) {
-        if (roomDao.exists(r.getId())) {
+        Room old = roomDao.find(r.getId());
+        if (old != null) {
+            r.setHotel(old.getHotel());
+            r.setReservations(old.getReservations());
             roomDao.update(r);
             return true;
         }
@@ -63,7 +81,10 @@ public class RoomService extends DaoConnection {
         if (r == null) {
             return false;
         }
+        Hotel h = r.getHotel();
+        h.getRooms().remove(r);
         roomDao.remove(r);
+        hotelDao.update(h);
         return true;
     }
 

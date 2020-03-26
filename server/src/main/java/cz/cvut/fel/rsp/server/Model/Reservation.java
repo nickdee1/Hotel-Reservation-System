@@ -187,7 +187,5 @@ public class Reservation extends AbstractEntity {
     public void setNumberOfChildren(Integer numberOfChildren) {
         this.numberOfChildren = numberOfChildren;
     }   
-    
-    }
 
 }
