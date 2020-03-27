@@ -32,22 +32,30 @@ public class UnregUserService extends DaoConnection {
     public UnregisteredUser findUserById(int id) { return unregUserDao.find(id); }
 
     @Transactional
-    public void updateUser(UnregisteredUser unregisteredUser) {
+    public boolean updateUser(UnregisteredUser unregisteredUser) {
         if (unregUserDao.exists(unregisteredUser.getId())) {
             unregUserDao.update(unregisteredUser);
+            return true;
         }
+        return false;
     }
 
     @Transactional
-    public void createUser(UnregisteredUser unregisteredUser) {
-        unregUserDao.persist(unregisteredUser);
+    public boolean createUser(UnregisteredUser unregisteredUser) {
+        if (unregisteredUser != null) {
+            unregUserDao.persist(unregisteredUser);
+            return true;
+        }
+        return false;
     }
 
     @Transactional
-    public boolean deleteUser(UnregisteredUser unregisteredUser) {
-        if(!unregisteredUser.isDeleteable()) {
-            return false;
-        }
+    public boolean deleteUser(Integer userId) {
+        UnregisteredUser unregisteredUser = unregUserDao.find(userId);
+
+        if (unregisteredUser == null) return false;
+        if(!unregisteredUser.isDeleteable())  return false;
+
         List<Reservation> reservations = unregisteredUser.getReservations();
         for(Reservation r: reservations) {
             Hotel h = r.getHotel();

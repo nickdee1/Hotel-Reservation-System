@@ -45,9 +45,25 @@ public class ReservationService extends DaoConnection {
         
     }
 
+
     @Transactional
-    public boolean addReservation(Reservation reservation) {
-        if (reservation != null) {
+    public boolean addReservationReg(Reservation reservation, Integer userId) {
+        User user = userDao.find(userId);
+        if (reservation != null && user != null) {
+            user.setReservation(reservation);
+            reservation.setRegUser(user);
+            resDao.persist(reservation);
+            return true;
+        }
+        return false;
+    }
+
+    @Transactional
+    public boolean addReservationUnreg(Reservation reservation, Integer userId) {
+        UnregisteredUser user = unregUserDao.find(userId);
+        if (reservation != null && user != null) {
+            user.setReservation(reservation);
+            reservation.setUnregUser(user);
             resDao.persist(reservation);
             return true;
         }

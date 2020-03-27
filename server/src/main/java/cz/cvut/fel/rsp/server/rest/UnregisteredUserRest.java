@@ -33,25 +33,17 @@ public class UnregisteredUserRest extends AbstractServices{
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public void addUnregUser(@RequestBody UnregisteredUser unregisteredUser) {
-        if (unregisteredUser != null) {
-            unregUserService.createUser(unregisteredUser);
-        }
+        unregUserService.createUser(unregisteredUser);
     }
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void updateUnregUser(@RequestBody UnregisteredUser unregisteredUser) {
-        UnregisteredUser unregUser = unregUserService.findUserById(unregisteredUser.getId());
-        if (unregUser != null) {
-            unregUserService.updateUser(unregisteredUser);
-        }
+        unregUserService.updateUser(unregisteredUser);
     }
 
     @DeleteMapping(value= "/{id}")
     public void deleteUnregUser(@PathVariable Integer id) {
-        UnregisteredUser userToDelete = unregUserService.findUserById(id);
-        if (userToDelete != null) {
-            unregUserService.deleteUser(userToDelete);
-        }
+        unregUserService.deleteUser(id);
     }
 
 }
