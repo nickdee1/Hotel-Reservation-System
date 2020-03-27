@@ -39,12 +39,24 @@ public class RegUserService extends DaoConnection {
         return userDao.findAll();
     }
 
-    public User findUserById(int id) { return userDao.find(id); }
+    @Transactional
+    public List<User> findAllByHotel(int hotelId) {
+        Hotel h = hotelDao.find(hotelId);
+        if (h != null) {
+            userDao.findAllByHotel(h);
+        }
+        return null;
+    }
+
+    @Transactional
+    public User findUserById(int id) {
+        return userDao.find(id);
+    }
 
     @Transactional
     public boolean createUser(User u, int hotelId) {
         Hotel h = hotelDao.find(hotelId);
-        if(h == null) {
+        if (h == null) {
             return false;
         }
         u.setHotel(h);
@@ -66,11 +78,11 @@ public class RegUserService extends DaoConnection {
         }
         return false;
     }
-    
+
     @Transactional
     public boolean updateUserRoles(int id, List<UserRoleEnum> roles) {
         User u = userDao.find(id);
-        if(u != null) {
+        if (u != null) {
             u.setRoles(roles);
             return true;
         }
