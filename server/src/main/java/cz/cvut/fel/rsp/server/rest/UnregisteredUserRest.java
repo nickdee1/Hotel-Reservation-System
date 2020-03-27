@@ -36,7 +36,7 @@ public class UnregisteredUserRest extends AbstractServices{
         unregUserService.createUser(unregisteredUser);
     }
 
-    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public void updateUnregUser(@RequestBody UnregisteredUser unregisteredUser) {
         unregUserService.updateUser(unregisteredUser);
     }
