@@ -5,6 +5,7 @@
  */
 package cz.cvut.fel.rsp.server.service;
 
+import cz.cvut.fel.rsp.server.Model.Hotel;
 import cz.cvut.fel.rsp.server.Model.Reservation;
 import cz.cvut.fel.rsp.server.Model.UnregisteredUser;
 import cz.cvut.fel.rsp.server.Model.User;
@@ -45,29 +46,43 @@ public class ReservationService extends DaoConnection {
         
     }
 
-
     @Transactional
-    public boolean addReservationReg(Reservation reservation, Integer userId) {
+    public boolean addReservationReg(Reservation reservation, Integer userId, Integer hotelid) {
         User user = userDao.find(userId);
-        if (reservation != null && user != null) {
+        Hotel hotel = hotelDao.find(hotelid);
+        if (reservation != null && user != null && hotel != null) {
             user.setReservation(reservation);
             reservation.setRegUser(user);
+            reservation.setHotel(hotel);
             resDao.persist(reservation);
+            userDao.update(user);
             return true;
         }
         return false;
     }
 
     @Transactional
-    public boolean addReservationUnreg(Reservation reservation, Integer userId) {
+    public boolean addReservationUnreg(Reservation reservation, Integer userId, Integer hotelid) {
         UnregisteredUser user = unregUserDao.find(userId);
-        if (reservation != null && user != null) {
+        Hotel hotel = hotelDao.find(hotelid);
+        if (reservation != null && user != null && hotel != null) {
             user.setReservation(reservation);
             reservation.setUnregUser(user);
+            reservation.setHotel(hotel);
             resDao.persist(reservation);
+            unregUserDao.update(user);
             return true;
         }
         return false;
+    }
+
+    @Transactional
+    public List<Reservation> getReservationsByHotel(Integer hotelid) {
+        Hotel hotel = hotelDao.find(hotelid);
+        if (hotel != null) {
+            return hotel.getReservations();
+        }
+        return null;
     }
 
 }
