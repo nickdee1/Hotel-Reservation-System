@@ -60,6 +60,7 @@ public class RegUserService extends DaoConnection {
         if (old != null) {
             u.setReservations(old.getReservations());
             u.setRoles(u.getRoles());
+            u.setHotel(old.getHotel());
             userDao.update(u);
             return true;
         }

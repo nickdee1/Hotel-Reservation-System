@@ -27,15 +27,4 @@ public class RoomDao extends AbstractDao<Room> {
         super(Room.class);
     }
     
-    public List<Room> findAllByHotel(Hotel h) {
-        CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery cq = cb.createQuery();
-        Root<Room> r  = cq.from(Room.class);
-        Expression<Collection<Hotel>> hotels = r.get("hotel");
-        Predicate p = cb.isMember(h, hotels);
-        cq.where(p);
-
-        return em.createQuery(cq).getResultList();
-    }
-    
 }

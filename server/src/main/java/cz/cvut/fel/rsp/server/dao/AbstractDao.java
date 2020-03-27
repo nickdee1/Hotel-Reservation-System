@@ -1,11 +1,18 @@
 package cz.cvut.fel.rsp.server.dao;
 
+import cz.cvut.fel.rsp.server.Model.Hotel;
+import cz.cvut.fel.rsp.server.Model.Room;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 public abstract class AbstractDao<T>{
 
@@ -75,5 +82,16 @@ public abstract class AbstractDao<T>{
 
     public boolean exists(Integer id) {
         return id != null && em.find(type, id) != null;
+    }
+    
+    public List<T> findAllByHotel(Hotel h) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery cq = cb.createQuery();
+        Root<T> r  = cq.from(this.type);
+        Expression<Collection<Hotel>> hotels = r.get("hotel");
+        Predicate p = cb.isMember(h, hotels);
+        cq.where(p);
+
+        return em.createQuery(cq).getResultList();
     }
 }
