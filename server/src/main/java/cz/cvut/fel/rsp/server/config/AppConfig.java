@@ -8,6 +8,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.client.RestTemplate;
@@ -18,7 +19,8 @@ import org.springframework.web.multipart.support.StandardServletMultipartResolve
 public class AppConfig {
 
     /**
-     * {@link RestTemplate} can be used to communicate with web services of another application - see for example <a
+     * {@link RestTemplate} can be used to communicate with web services of
+     * another application - see for example <a
      * href="http://www.baeldung.com/rest-template">http://www.baeldung.com/rest-template</a>.
      */
     @Bean
@@ -35,9 +37,11 @@ public class AppConfig {
     }
 
     /**
-     * Overrides the default {@link ObjectMapper} bean created by Spring Boot to allow further customization.
+     * Overrides the default {@link ObjectMapper} bean created by Spring Boot to
+     * allow further customization.
      * <p>
-     * Basic configuration could be also done in {@code application.properties}, see <a
+     * Basic configuration could be also done in {@code application.properties},
+     * see <a
      * href="https://docs.spring.io/spring-boot/docs/current/reference/html/howto-spring-mvc.html#howto-customize-the-jackson-objectmapper">Spring
      * Boot reference</a>.
      *

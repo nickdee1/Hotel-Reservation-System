@@ -45,7 +45,7 @@ public class RegUserService extends DaoConnection {
     public List<User> findAllByHotel(int hotelId) {
         Hotel h = hotelDao.find(hotelId);
         if (h != null) {
-            userDao.findAllByHotel(h);
+            return h.getRegisteredUsers();
         }
         return null;
     }
