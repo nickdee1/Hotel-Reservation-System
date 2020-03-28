@@ -15,7 +15,7 @@ public class SecurityConstants {
         throw new AssertionError();
     }
 
-    public static final String SESSION_COOKIE_NAME = "EAR_JSESSIONID";
+    public static final String SESSION_COOKIE_NAME = "RSP_JSESSIONID";
 
     public static final String REMEMBER_ME_COOKIE_NAME = "remember-me";
 

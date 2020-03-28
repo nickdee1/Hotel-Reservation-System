@@ -19,10 +19,11 @@ public class RegisteredUserRest extends AbstractServices{
     public RegisteredUserRest(RoomService roomService, HotelService hotelService, RegUserService regUserService, ReservationService reservationService, UnregUserService unregUserService) {
         super(roomService, hotelService, regUserService, reservationService, unregUserService);
     }
-
+    
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<User> getAllUsers() {
-        return regUserService.findAll();
+    public List<User> getAllUsersByHotel(@PathVariable Integer hotelid) {
+        List<User> res = regUserService.findAllByHotel(hotelid);
+        return res;
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -31,17 +32,17 @@ public class RegisteredUserRest extends AbstractServices{
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void addUnregUser(@RequestBody User user, @PathVariable Integer hotelid) {
+    public void addRegUser(@RequestBody User user, @PathVariable Integer hotelid) {
         regUserService.createUser(user, hotelid);
     }
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void updateUnregUser(@RequestBody User user) {
+    public void updateRegUser(@RequestBody User user) {
         regUserService.updateUser(user);
     }
 
     @DeleteMapping(value= "/{id}")
-    public void deleteUnregUser(@PathVariable Integer id) {
+    public void deleteRegUser(@PathVariable Integer id) {
         regUserService.deleteUser(id);
     }
 

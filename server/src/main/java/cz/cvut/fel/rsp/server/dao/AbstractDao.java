@@ -84,6 +84,11 @@ public abstract class AbstractDao<T>{
         return id != null && em.find(type, id) != null;
     }
     
+    /**
+     * use only with RegUser, Reservation and Room
+     * @param h
+     * @return 
+     */
     public List<T> findAllByHotel(Hotel h) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery cq = cb.createQuery();
@@ -91,7 +96,6 @@ public abstract class AbstractDao<T>{
         Expression<Collection<Hotel>> hotels = r.get("hotel");
         Predicate p = cb.isMember(h, hotels);
         cq.where(p);
-
         return em.createQuery(cq).getResultList();
     }
 }

@@ -30,8 +30,8 @@ import org.springframework.stereotype.Service;
 public class RegUserService extends DaoConnection {
 
     @Autowired
-    public RegUserService(HotelDao hotelDao, UserDao userDao, ReservationDao resDao, UnregisteredUserDao unregUserDao, RoomDao roomDao) {
-        super(hotelDao, userDao, resDao, unregUserDao, roomDao);
+    public RegUserService(HotelDao hotelDao, UserDao userDao, ReservationDao resDao, UnregisteredUserDao unregUserDao, RoomDao roomDao, PasswordEncoder passwordEncoder) {
+        super(hotelDao, userDao, resDao, unregUserDao, roomDao, passwordEncoder);
     }
 
     @Transactional
