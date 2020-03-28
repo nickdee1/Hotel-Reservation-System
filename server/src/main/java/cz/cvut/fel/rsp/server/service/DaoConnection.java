@@ -15,6 +15,7 @@ import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -28,14 +29,16 @@ public abstract class DaoConnection{
     protected ReservationDao resDao;
     protected UnregisteredUserDao unregUserDao;
     protected RoomDao roomDao;
+    protected PasswordEncoder passwordEncoder;
 
     @Autowired
-    public DaoConnection(HotelDao hotelDao, UserDao userDao, ReservationDao resDao, UnregisteredUserDao unregUserDao, RoomDao roomDao) {
+    public DaoConnection(HotelDao hotelDao, UserDao userDao, ReservationDao resDao, UnregisteredUserDao unregUserDao, RoomDao roomDao, PasswordEncoder passwordEncoder) {
         this.hotelDao = hotelDao;
         this.userDao = userDao;
         this.resDao = resDao;
         this.unregUserDao = unregUserDao;
         this.roomDao = roomDao;
+        this.passwordEncoder = passwordEncoder;
     }
     
     protected void init() {

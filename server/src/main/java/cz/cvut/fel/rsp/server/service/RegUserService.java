@@ -20,6 +20,7 @@ import cz.cvut.fel.rsp.server.dao.UserDao;
 import java.util.List;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -30,9 +31,10 @@ import org.springframework.stereotype.Service;
 public class RegUserService extends DaoConnection {
 
     @Autowired
-    public RegUserService(HotelDao hotelDao, UserDao userDao, ReservationDao resDao, UnregisteredUserDao unregUserDao, RoomDao roomDao) {
-        super(hotelDao, userDao, resDao, unregUserDao, roomDao);
+    public RegUserService(HotelDao hotelDao, UserDao userDao, ReservationDao resDao, UnregisteredUserDao unregUserDao, RoomDao roomDao, PasswordEncoder passwordEncoder) {
+        super(hotelDao, userDao, resDao, unregUserDao, roomDao, passwordEncoder);
     }
+
 
     @Transactional
     public List<User> findAll() {
@@ -61,6 +63,7 @@ public class RegUserService extends DaoConnection {
         }
         u.setHotel(h);
         h.getRegisteredUsers().add(u);
+        u.setPassword(passwordEncoder.encode(u.getPassword()));
         userDao.persist(u);
         hotelDao.update(h);
         return true;

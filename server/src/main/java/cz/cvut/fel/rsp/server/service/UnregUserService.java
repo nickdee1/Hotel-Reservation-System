@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  *
@@ -21,11 +22,11 @@ import java.util.List;
 @Service
 public class UnregUserService extends DaoConnection {
 
-
     @Autowired
-    public UnregUserService(HotelDao hotelDao, UserDao userDao, ReservationDao resDao, UnregisteredUserDao unregUserDao, RoomDao roomDao) {
-        super(hotelDao, userDao, resDao, unregUserDao, roomDao);
-    }
+    public UnregUserService(HotelDao hotelDao, UserDao userDao, ReservationDao resDao, UnregisteredUserDao unregUserDao, RoomDao roomDao, PasswordEncoder passwordEncoder) {
+        super(hotelDao, userDao, resDao, unregUserDao, roomDao, passwordEncoder);
+    }   
+    
 
     public List<UnregisteredUser> getAllUnregUsers() { return unregUserDao.findAll(); }
 

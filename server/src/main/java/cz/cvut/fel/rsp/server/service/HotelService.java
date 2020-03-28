@@ -15,6 +15,7 @@ import cz.cvut.fel.rsp.server.dao.UserDao;
 import java.util.List;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -25,9 +26,9 @@ import org.springframework.stereotype.Service;
 public class HotelService extends DaoConnection {
 
     @Autowired
-    public HotelService(HotelDao hotelDao, UserDao userDao, ReservationDao resDao, UnregisteredUserDao unregUserDao, RoomDao roomDao) {
-        super(hotelDao, userDao, resDao, unregUserDao, roomDao);
-    }
+    public HotelService(HotelDao hotelDao, UserDao userDao, ReservationDao resDao, UnregisteredUserDao unregUserDao, RoomDao roomDao, PasswordEncoder passwordEncoder) {
+        super(hotelDao, userDao, resDao, unregUserDao, roomDao, passwordEncoder);
+    }    
 
     @Transactional
     public List<Hotel> getAllHotels() {
