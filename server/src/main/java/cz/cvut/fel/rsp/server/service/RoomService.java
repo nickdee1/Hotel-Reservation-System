@@ -45,7 +45,7 @@ public class RoomService extends DaoConnection {
         if(h == null) {
             return null;
         }
-        return roomDao.findAllByHotel(h);
+        return h.getRooms();
     }
 
     @Transactional

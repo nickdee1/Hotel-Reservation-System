@@ -20,6 +20,7 @@ import cz.cvut.fel.rsp.server.dao.UserDao;
 import java.util.List;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -34,6 +35,7 @@ public class RegUserService extends DaoConnection {
         super(hotelDao, userDao, resDao, unregUserDao, roomDao, passwordEncoder);
     }
 
+
     @Transactional
     public List<User> findAll() {
         return userDao.findAll();
@@ -44,11 +46,12 @@ public class RegUserService extends DaoConnection {
     @Transactional
     public boolean createUser(User u, int hotelId) {
         Hotel h = hotelDao.find(hotelId);
-        if(h == null) {
+        if (h == null) {
             return false;
         }
         u.setHotel(h);
         h.getRegisteredUsers().add(u);
+        u.setPassword(passwordEncoder.encode(u.getPassword()));
         userDao.persist(u);
         hotelDao.update(h);
         return true;
@@ -67,6 +70,7 @@ public class RegUserService extends DaoConnection {
         return false;
     }
 
+
     @Transactional
     public List<Reservation> getAllReservations(Integer id) {
         User user = userDao.find(id);
@@ -77,10 +81,11 @@ public class RegUserService extends DaoConnection {
     }
 
 
+
     @Transactional
     public boolean updateUserRoles(int id, List<UserRoleEnum> roles) {
         User u = userDao.find(id);
-        if(u != null) {
+        if (u != null) {
             u.setRoles(roles);
             return true;
         }
