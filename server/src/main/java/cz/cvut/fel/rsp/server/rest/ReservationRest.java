@@ -2,11 +2,13 @@ package cz.cvut.fel.rsp.server.rest;
 
 import cz.cvut.fel.rsp.server.Model.Reservation;
 import cz.cvut.fel.rsp.server.service.*;
+import cz.cvut.fel.rsp.server.service.Model.ResUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 
 
@@ -33,5 +35,10 @@ public class ReservationRest extends AbstractServices {
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Reservation> getReservationsByHotel(@PathVariable Integer hotelid) {
         return reservationService.getReservationsByHotel(hotelid);
+    }
+
+    @GetMapping(value = "/{res_id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResUser getUserByReservation(@PathVariable Integer res_id) {
+        return reservationService.getUserByReservation(res_id);
     }
 }

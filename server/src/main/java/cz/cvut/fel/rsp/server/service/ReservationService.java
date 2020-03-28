@@ -16,6 +16,8 @@ import cz.cvut.fel.rsp.server.dao.UnregisteredUserDao;
 import cz.cvut.fel.rsp.server.dao.UserDao;
 import java.util.List;
 import javax.transaction.Transactional;
+
+import cz.cvut.fel.rsp.server.service.Model.ResUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -95,6 +97,23 @@ public class ReservationService extends DaoConnection {
         Hotel hotel = hotelDao.find(hotelid);
         if (hotel != null) {
             return hotel.getReservations();
+        }
+        return null;
+    }
+
+    @Transactional
+    public ResUser getUserByReservation(Integer id) {
+        Reservation reservation = resDao.find(id);
+        ResUser resUser = new ResUser();
+
+        if (reservation == null) return null;
+        if (reservation.getRegUser() != null) {
+            resUser.setRegistered(reservation.getRegUser());
+            return resUser;
+        }
+        else if (reservation.getUnregUser() != null) {
+            resUser.setUnregistered(reservation.getUnregUser());
+            return resUser;
         }
         return null;
     }
