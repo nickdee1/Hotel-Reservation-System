@@ -83,6 +83,16 @@ public class RegUserService extends DaoConnection {
     }
 
     @Transactional
+    public List<Reservation> getAllReservations(Integer id) {
+        User user = userDao.find(id);
+        if (user != null) {
+            return user.getReservations();
+        }
+        return null;
+    }
+
+
+    @Transactional
     public boolean updateUserRoles(int id, List<UserRoleEnum> roles) {
         User u = userDao.find(id);
         if (u != null) {

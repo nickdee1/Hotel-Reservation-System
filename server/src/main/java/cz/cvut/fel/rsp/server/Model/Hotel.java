@@ -39,6 +39,7 @@ public class Hotel extends AbstractEntity {
     private List<Reservation> reservations;
 
     public Hotel() {
+        reservations = new ArrayList<>();
     }
 
     public String getName() {
@@ -137,6 +138,8 @@ public class Hotel extends AbstractEntity {
     public void setReservations(List<Reservation> reservations) {
         this.reservations = reservations;
     }
+
+    public void addReservation(Reservation reservation) { reservations.add(reservation); }
     
     public void setId(int id) {
         this.id =id;

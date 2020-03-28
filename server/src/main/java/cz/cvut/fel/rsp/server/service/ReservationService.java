@@ -16,6 +16,8 @@ import cz.cvut.fel.rsp.server.dao.UnregisteredUserDao;
 import cz.cvut.fel.rsp.server.dao.UserDao;
 import java.util.List;
 import javax.transaction.Transactional;
+
+import cz.cvut.fel.rsp.server.service.Model.ResUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -43,8 +45,18 @@ public class ReservationService extends DaoConnection {
     }
     
     @Transactional
-    public void updateResById(int id) {
-        
+    public boolean updateReservation(Reservation reservation) {
+        Reservation old = resDao.find(reservation.getId());
+        if (old != null) {
+            reservation.setHotel(old.getHotel());
+            reservation.setRegUser(old.getRegUser());
+            reservation.setUnregUser(old.getUnregUser());
+            reservation.setRooms(old.getRooms());
+            resDao.update(reservation);
+            return true;
+        }
+
+        return false;
     }
 
     @Transactional
@@ -55,6 +67,8 @@ public class ReservationService extends DaoConnection {
             user.setReservation(reservation);
             reservation.setRegUser(user);
             reservation.setHotel(hotel);
+            hotel.addReservation(reservation);
+            hotelDao.update(hotel);
             resDao.persist(reservation);
             userDao.update(user);
             return true;
@@ -70,7 +84,9 @@ public class ReservationService extends DaoConnection {
             user.setReservation(reservation);
             reservation.setUnregUser(user);
             reservation.setHotel(hotel);
+            hotel.addReservation(reservation);
             resDao.persist(reservation);
+            hotelDao.update(hotel);
             unregUserDao.update(user);
             return true;
         }
@@ -82,6 +98,23 @@ public class ReservationService extends DaoConnection {
         Hotel hotel = hotelDao.find(hotelid);
         if (hotel != null) {
             return hotel.getReservations();
+        }
+        return null;
+    }
+
+    @Transactional
+    public ResUser getUserByReservation(Integer id) {
+        Reservation reservation = resDao.find(id);
+        ResUser resUser = new ResUser();
+
+        if (reservation == null) return null;
+        if (reservation.getRegUser() != null) {
+            resUser.setRegistered(reservation.getRegUser());
+            return resUser;
+        }
+        else if (reservation.getUnregUser() != null) {
+            resUser.setUnregistered(reservation.getUnregUser());
+            return resUser;
         }
         return null;
     }

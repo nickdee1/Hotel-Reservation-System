@@ -40,35 +40,35 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             SecurityConstants.REMEMBER_ME_COOKIE_NAME
     };
 
-//    private final AuthenticationFailureHandler authenticationFailureHandler;
-//
-//    private final AuthenticationSuccessHandler authenticationSuccessHandler;
-//
-//    private final LogoutSuccessHandler logoutSuccessHandler;
-//
-//    private final AuthenticationProvider authenticationProvider;
+    private final AuthenticationFailureHandler authenticationFailureHandler;
 
-//    @Autowired
-//    public SecurityConfig(AuthenticationFailureHandler authenticationFailureHandler,
-//                          AuthenticationSuccessHandler authenticationSuccessHandler,
-//                          LogoutSuccessHandler logoutSuccessHandler,
-//                          AuthenticationProvider authenticationProvider) {
-//        this.authenticationFailureHandler = authenticationFailureHandler;
-//        this.authenticationSuccessHandler = authenticationSuccessHandler;
-//        this.logoutSuccessHandler = logoutSuccessHandler;
-//        this.authenticationProvider = authenticationProvider;
-//    }
-//
-//    @Override
-//    protected void configure(AuthenticationManagerBuilder auth) {
-//        auth.authenticationProvider(authenticationProvider);
-//    }
-//
-//    @Bean
-//    @Override
-//    public AuthenticationManager authenticationManagerBean() throws Exception {
-//        return super.authenticationManagerBean();
-//    }
+    private final AuthenticationSuccessHandler authenticationSuccessHandler;
+
+    private final LogoutSuccessHandler logoutSuccessHandler;
+
+    private final AuthenticationProvider authenticationProvider;
+
+    @Autowired
+    public SecurityConfig(AuthenticationFailureHandler authenticationFailureHandler,
+                          AuthenticationSuccessHandler authenticationSuccessHandler,
+                          LogoutSuccessHandler logoutSuccessHandler,
+                          AuthenticationProvider authenticationProvider) {
+        this.authenticationFailureHandler = authenticationFailureHandler;
+        this.authenticationSuccessHandler = authenticationSuccessHandler;
+        this.logoutSuccessHandler = logoutSuccessHandler;
+        this.authenticationProvider = authenticationProvider;
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) {
+        auth.authenticationProvider(authenticationProvider);
+    }
+
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
