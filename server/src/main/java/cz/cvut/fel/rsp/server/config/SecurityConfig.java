@@ -73,19 +73,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.anonymous().and().cors().and().csrf().disable();
-//        http.authorizeRequests().anyRequest().permitAll().and()
-//            .exceptionHandling().authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
-//            .and().headers().frameOptions().sameOrigin()
-//            .and().authenticationProvider(authenticationProvider)
-//            .csrf().disable()
-//            .formLogin().successHandler(authenticationSuccessHandler)
-//            .failureHandler(authenticationFailureHandler)
-//            .loginProcessingUrl(SecurityConstants.SECURITY_CHECK_URI)
-//            .usernameParameter(SecurityConstants.EMAIL_PARAM).passwordParameter(SecurityConstants.PASSWORD_PARAM)
-//            .and()
-//            .logout().invalidateHttpSession(true).deleteCookies(COOKIES_TO_DESTROY)
-//            .logoutUrl(SecurityConstants.LOGOUT_URI).logoutSuccessHandler(logoutSuccessHandler)
-//            .and().sessionManagement().maximumSessions(1);
+//        http.anonymous().and().cors().and().csrf().disable();
+        http.authorizeRequests().anyRequest().permitAll().and()
+            .exceptionHandling().authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
+            .and().headers().frameOptions().sameOrigin()
+            .and().authenticationProvider(authenticationProvider)
+            .csrf().disable()
+            .formLogin().successHandler(authenticationSuccessHandler)
+            .failureHandler(authenticationFailureHandler)
+            .loginProcessingUrl(SecurityConstants.SECURITY_CHECK_URI)
+            .usernameParameter(SecurityConstants.EMAIL_PARAM).passwordParameter(SecurityConstants.PASSWORD_PARAM)
+            .and()
+            .logout().invalidateHttpSession(true).deleteCookies(COOKIES_TO_DESTROY)
+            .logoutUrl(SecurityConstants.LOGOUT_URI).logoutSuccessHandler(logoutSuccessHandler)
+            .and().sessionManagement().maximumSessions(1);
     }
 }
